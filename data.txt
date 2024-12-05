@@ -1,0 +1,4 @@
+url,title,type,genres,releaseYear,imdbId,imdbAverageRating,imdbNumVotes,platform,availableCountries
+https://www.netflix.com/title/60000724,Forrest Gump,movie,"Drama, Romance",1994,tt0109830,8.8,2313221,Netflix,MX
+https://www.netflix.com/title/1154386,Forrest Gump,movie,"Action, Adventure, Sci-Fi",1997,tt0109830,7.6,516523,Amazon,"AT, CH, DE"
+https://www.netflix.com/title/60031236,Forrest Gump,movie,"Action, Crime, Thriller",2003,tt0109830,8.2,1220488,Disney,"AE, AL, AO, AT, AU, AZ, BG, BH, BY, CA, CI, CM, CZ, DE, DK, EE, EG, FI, FJ, GH, GQ, GR, HR, HU, IQ, IS, IT, JO, KE, KR, KW, LB, LI, LT, LU, LV, LY, MC, MD, ME, MK, MT, MZ, NE, NG, NO, NZ, OM, PL, QA, RO, RS, SA, SC, SE, SI, SK, SM, SN, TR, TZ, UA, UG, YE, ZA, ZM, ZW"

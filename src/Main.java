@@ -1,5 +1,4 @@
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.io.File;
@@ -11,23 +10,16 @@ public class Main {
     // HashedDictionary Configuration
     public static int initialCapacity = 1000;
     public static String primaryHash = "PAF"; // 'SSF' or 'PAF'
-    public static String collisionSolve = "DH"; // 'LP' or 'DH'
+    public static String collisionSolve = "LP"; // 'LP' or 'DH'
     public static double loadFactor = 0.8;
 
 
-    public static HashedDictionary<String, Media> dictionary = new HashedDictionary<>(initialCapacity,primaryHash,collisionSolve, loadFactor);
+    public static HashedDictionary<String, Media> dictionary = new HashedDictionary<>(initialCapacity, primaryHash, collisionSolve, loadFactor);
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
 
-        /*
-        1.	Load dataset ✅
-        2.	Run 1000 search test ✅
-        3.	Search for a media item with the ImdbId. ✅
-        4.	List the top 10 media according to user votes ✅
-        5.	List all the media streams in a given country ✅
-        6.	List the media items that are streaming on all 5 platforms ✅
-        7.  Exit ✅
-         */
+        displayMenu();
+
         boolean endLoop = false;
         while (!endLoop) {
             System.out.print("Pls Select an Operation: ");
@@ -59,25 +51,41 @@ public class Main {
                     break;
             }
         }
-
     }
 
-    public static void loadData() throws FileNotFoundException {
+    private static void displayMenu() {
+        System.out.println("----------------MENU----------------");
+        System.out.println("1.\tLoad dataset \n" +
+                "2.\tRun 1000 search test \n" +
+                "3.\tSearch for a media item with the ImdbId. \n" +
+                "4.\tList the top 10 media according to user votes \n" +
+                "5.\tList all the media streams in a given country \n" +
+                "6.\tList the media items that are streaming on all 5 platforms \n" +
+                "7.  Exit ");
+    }
+
+    public static void loadData() {
         long startTime = System.currentTimeMillis();
-        Scanner sc = new Scanner(new File("movies_dataset.csv"));
+        Scanner sc;
+        try {
+            sc = new Scanner(new File("movies_dataset.csv"));
+        } catch (FileNotFoundException e) {
+            System.out.println("Data File Not Found...");
+            return;
+        }
         sc.nextLine();
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
             String[] data = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-            if (data[5].isEmpty()) {
+            if (data.length < 10 || data[5].isEmpty()) {
                 continue;
             }
             Media media = new Media(data);
             String key = data[5];
 
-            Media oldData = dictionary.add(key, media);
-            if (oldData != null) {
-                Iterator<Platform> platformIterator = oldData.getPlatforms().getIterator();
+            Media oldMedia = dictionary.add(key, media);
+            if (oldMedia != null) {
+                Iterator<Platform> platformIterator = oldMedia.getPlatforms().getIterator();
                 while (platformIterator.hasNext()) {
                     Platform platform = platformIterator.next();
                     dictionary.getValue(key).addPlatform(platform);
@@ -90,11 +98,18 @@ public class Main {
         System.out.println("Collision Count: " + dictionary.getCollisionCount());
     }
 
-    public static void searchTest() throws FileNotFoundException {
+    public static void searchTest() {
         long startTime = System.currentTimeMillis();
         int found_count = 0;
         int not_found_count = 0;
-        Scanner sc = new Scanner(new File("search.txt"));
+        Scanner sc;
+
+        try {
+            sc = new Scanner(new File("search.txt"));
+        } catch (FileNotFoundException e) {
+            System.out.println("Search File Not Found...");
+            return;
+        }
         while (sc.hasNextLine()) {
             String imdbID = sc.nextLine();
             if (dictionary.getValue(imdbID) != null) {
@@ -108,7 +123,7 @@ public class Main {
         double averageSearchTime = elapsedTime / 1000.0;
         System.out.println(found_count + " Media Found.");
         System.out.println(not_found_count + " Media Not Found.");
-        System.out.println("Average Search Time is " + averageSearchTime +"ms");
+        System.out.println("Average Search Time is " + averageSearchTime + "ms");
 
     }
 
@@ -117,7 +132,12 @@ public class Main {
         String mediaID = sc_input.nextLine();
         Media media = dictionary.getValue(mediaID);
         if (media != null) {
-            System.out.println("Media Title: " + media.getTitle());
+            System.out.println(" Title: " + media.getTitle());
+            System.out.println(" Type: " + media.getType());
+            System.out.println(" Genre: " + media.getGenres());
+            System.out.println(" Release Year: " + media.getReleaseYear());
+            System.out.println(" IMDb ID: " + media.getImdbID());
+            System.out.println(" Number of Votes: " + media.getImdbNumVotes());
         } else {
             System.out.println("Media Not Found...");
         }
@@ -129,37 +149,54 @@ public class Main {
         while (valueIterator.hasNext()) {
             top10Arr.add(valueIterator.next());
         }
+        System.out.println("----------TOP 10----------");
         Iterator<Media> topIterator = top10Arr.getIterator();
         while (topIterator.hasNext()) {
             Media media = topIterator.next();
-            System.out.println(media.getTitle());
+            System.out.println("Title: "+media.getTitle() + "   " + "Votes: "+ media.getImdbNumVotes());
         }
     }
 
     public static void countrySearch() {
-        System.out.println("Enter country Pls:");
+        System.out.print("Enter Country Code Pls:");
         String countryCode = sc_input.nextLine().toUpperCase();
         Iterator<Media> valueIterator = dictionary.getValueIterator();
+        System.out.println("-----> Media Streams In "+countryCode);
+        int counter = 0;
         while (valueIterator.hasNext()) {
             Media media = valueIterator.next();
             Iterator<Platform> platformIterator = media.getPlatforms().getIterator();
             while (platformIterator.hasNext()) {
                 Platform platform = platformIterator.next();
-                if (Arrays.asList(platform.getAvailableCountries()).contains(countryCode)) {
-                    System.out.println(media.getTitle());
+                String[] countryCodes = platform.getAvailableCountries();
+                boolean found = false;
+                for (String code : countryCodes) {
+                    if (code.equals(countryCode)) {
+                        System.out.println(media.getTitle());
+                        found = true;
+                        break;
+                    }
+                }
+                if (found) {
+                    counter++;
                     break;
                 }
             }
         }
+        System.out.println("Media Streams Found: "+counter);
     }
 
     public static void allPlatformMedia() {
         Iterator<Media> valueIterator = dictionary.getValueIterator();
+        System.out.println(" --- > Streams that Available on All Platforms");
+        int counter = 0;
         while (valueIterator.hasNext()) {
             Media media = valueIterator.next();
             if (media.getPlatforms().getSize() == 5) {
-                System.out.println(media.getTitle());
+                System.out.println("Title: "+media.getTitle());
+                counter++;
             }
         }
+        System.out.println("Media Streams Found: "+counter);
     }
 }

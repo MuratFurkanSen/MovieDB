@@ -32,7 +32,7 @@ public class Media implements Comparable<Media>{
 
     @Override
     public int compareTo(Media other) {
-        return Double.compare(this.getImdbAverageRate(), other.getImdbAverageRate());
+        return Integer.compare(this.getImdbNumVotes(), other.getImdbNumVotes());
     }
 
     // Getters and Setters

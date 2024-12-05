@@ -8,7 +8,6 @@ public class SLL<T> {
         head = null;
         size = 0;
     }
-
     public void add(T data) {
 
         SLLNode newNode = new SLLNode(data);
@@ -24,6 +23,20 @@ public class SLL<T> {
         temp.next = newNode;
         size++;
     }
+    public boolean contains(T value){
+        if (head == null){
+            return false;
+        }
+        SLLNode temp = head;
+        while (temp != null){
+            if (temp.getData().equals(value)){
+                return true;
+            }
+            temp = temp.next;
+        }
+        return false;
+    }
+
     public Iterator<T> getIterator() {
         return new ListIterator();
     }
@@ -35,6 +48,14 @@ public class SLL<T> {
         public SLLNode(T data) {
             this.data = data;
             this.next = null;
+        }
+
+        public T getData() {
+            return data;
+        }
+
+        public void setData(T data) {
+            this.data = data;
         }
     }
 

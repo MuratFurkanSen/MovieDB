@@ -26,7 +26,8 @@ public class SortedArray<T extends Comparable<T>> {
                     }
                     break;
                 }
-            } else { // Add to top of the array
+            }
+            else { // Add to top of the array
                 array[i] = element;
             }
         }

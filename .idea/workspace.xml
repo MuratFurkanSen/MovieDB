@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="19a98bd9-ccee-42ed-be90-d05adbd2ec92" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HashedDictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HashedDictionary.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Media.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Media.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SLL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SLL.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SortedArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SortedArray.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,6 +40,7 @@
     "Application.Test.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
@@ -87,6 +85,14 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -109,6 +115,7 @@
       <workItem from="1733341570826" duration="9395000" />
       <workItem from="1733353015607" duration="304000" />
       <workItem from="1733391204765" duration="6512000" />
+      <workItem from="1736368729168" duration="169000" />
     </task>
     <servers />
   </component>

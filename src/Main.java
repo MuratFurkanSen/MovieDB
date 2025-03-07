@@ -10,7 +10,7 @@ public class Main {
     // HashedDictionary Configuration
     public static int initialCapacity = 1000;
     public static String primaryHash = "PAF"; // 'SSF' or 'PAF'
-    public static String collisionSolve = "LP"; // 'LP' or 'DH'
+    public static String collisionSolve = "DH"; // 'LP' or 'DH'
     public static double loadFactor = 0.8;
 
 
@@ -64,7 +64,7 @@ public class Main {
                 "7.  Exit ");
     }
 
-    public static void loadData() {
+    public static void loadData()   {
         long startTime = System.currentTimeMillis();
         Scanner sc;
         try {
